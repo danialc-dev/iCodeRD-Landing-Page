@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iCode RD - Integração RD Station Marketing & Bitrix24</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+        }
+
+        /* Classes para animação de scroll na entrada */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ajuste de âncora para compensar o header fixo */
+        section[id] {
+            scroll-margin-top: 90px;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 overflow-x-hidden">
+
+    <header id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition-all duration-300 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <img src="src/logo.jpeg" alt="iCode RD"
+                    class="h-10 w-10 rounded-full object-cover border border-slate-700 fallback-hide"
+                    onerror="this.style.display='none'; document.getElementById('logo-icon').style.display='block';">
+                <i id="logo-icon" class="fa-solid fa-code text-brand-400 text-2xl hidden"></i>
+                <span class="text-xl font-bold text-white tracking-wide">iCode <span
+                        class="text-brand-400">RD</span></span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="#sobre" class="nav-link hover:text-white transition-colors" data-i18n="nav_about">Sobre</a>
+                <a href="#funcionalidades" class="nav-link hover:text-white transition-colors"
+                    data-i18n="nav_features">Funcionalidades</a>
+                <a href="#beneficios" class="nav-link hover:text-white transition-colors"
+                    data-i18n="nav_benefits">Benefícios</a>
+                <a href="#precos" class="nav-link hover:text-white transition-colors" data-i18n="nav_pricing">Preços</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleLanguage()"
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold hover:border-slate-700 transition-all text-slate-300">
+                    <span id="lang-flag">🇧🇷</span>
+                    <span id="lang-label">PT-BR</span>
+                </button>
+
+                <a href="https://www.bitrix24.com.br/apps/" target="_blank"
+                    class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg gradient-bg text-white font-bold text-sm shadow-lg shadow-brand-500/20 hover:opacity-95 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-rocket"></i>
+                    <span data-i18n="btn_install">Instalar no Bitrix24</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="pt-36 pb-20 px-6 relative overflow-hidden">
+        <div
+            class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-3xl -z-10 pointer-events-none">
+        </div>
+        <div
+            class="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-pink-500/10 rounded-full blur-3xl -z-10 pointer-events-none">
+        </div>
+
+        <div class="max-w-5xl mx-auto text-center reveal">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold mb-6">
+                <i class="fa-solid fa-bolt"></i>
+                <span data-i18n="hero_badge">Integração Inteligente de Alta Performance</span>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
+                <span data-i18n="hero_title_1">Elimine o abismo entre o Marketing e o seu</span>
+                <span class="gradient-text">Funil de Vendas</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed"
+                data-i18n="hero_subtitle">
+                O iCode RD captura dados de conversão no RD Station Marketing e envia instantaneamente para o Bitrix24.
+                Sem planilhas manuais, sem timing perdido e sem cadastros duplicados.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#precos"
+                    class="w-full sm:w-auto px-8 py-4 rounded-xl gradient-bg text-white font-bold text-base shadow-[0_0_30px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.5)] transition-all transform hover:-translate-y-0.5 text-center">
+                    <span data-i18n="btn_start_trial">Começar Trial de 60 Dias</span>
+                </a>
+                <a href="#sobre"
+                    class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold hover:bg-slate-800/80 transition-all text-center">
+                    <span data-i18n="btn_learn_more">Conhecer o Sistema</span>
+                </a>
+            </div>
+
+            <div class="relative rounded-2xl border border-slate-800 bg-slate-900/50 p-2 md:p-4 shadow-2xl">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10 pointer-events-none">
+                </div>
+                <div
+                    class="aspect-video w-full bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80 relative flex items-center justify-center group">
+                    <img src="/src/painel.png" alt="Painel iCode RD"
+                        class="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="py-20 border-t border-slate-900 bg-slate-900/20 px-6">
+        <div class="max-w-5xl mx-auto text-center reveal">
+            <h2 class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-3" data-i18n="about_tag">O que é o
+                iCode RD?</h2>
+            <h3 class="text-3xl font-bold text-white mb-6" data-i18n="about_title">O seu "tradutor e carteiro"
+                super-rápido</h3>
+
+            <div
+                class="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-left text-slate-300 leading-relaxed space-y-4 shadow-xl">
+                <p data-i18n="about_p1">
+                    O <b>iCode RD</b> é um aplicativo de integração inteligente criado para eliminar o abismo entre as
+                    suas campanhas de marketing e o seu funil de vendas.
+                </p>
+                <p data-i18n="about_p2">
+                    Ele atua de forma instantânea: no exato momento em que um lead converte em uma Landing Page ou
+                    atinge a pontuação ideal no RD Station Marketing, o iCode RD captura esses dados e os envia
+                    automaticamente para o seu CRM, criando <b>Contatos, Empresas e Negócios (Deals)</b> com todos os
+                    campos mapeados perfeitamente.
+                </p>
+                <p class="text-brand-300 font-medium border-t border-slate-800 pt-4 mt-4" data-i18n="about_p3">
+                    🚀 Chega de importar e exportar planilhas, perder o "timing" de vendas ou lidar com informações
+                    duplicadas no sistema.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="funcionalidades" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-3" data-i18n="features_tag">
+                    Tudo o que ele faz</h2>
+                <h3 class="text-3xl font-bold text-white" data-i18n="features_title">Funcionalidades Principais</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="bg-slate-900/60 border border-slate-800/80 p-8 rounded-2xl reveal hover:border-brand-500/40 transition-colors">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center mb-6 text-brand-400 text-xl">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3" data-i18n="f1_title">1. Sincronização em Tempo Real
+                    </h4>
+                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="f1_desc">
+                        Assim que um lead converte no RD Station (via Landing Page, Pop-up ou Formulário), o contato vai
+                        para o CRM instantaneamente. Seu time recebe a oportunidade enquanto o lead ainda está "quente".
+                    </p>
+                </div>
+
+                <div
+                    class="bg-slate-900/60 border border-slate-800/80 p-8 rounded-2xl reveal hover:border-pink-500/40 transition-colors">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center mb-6 text-pink-400 text-xl">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3" data-i18n="f2_title">2. Mapeamento Inteligente (De
+                        Para)</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="f2_desc">
+                        Conecte os campos personalizados do RD Station com os campos específicos do seu CRM. (Ex: O
+                        campo "Cargo" do RD vai exatamente para o campo "Cargo" do CRM, sem bagunça).
+                    </p>
+                </div>
+
+                <div
+                    class="bg-slate-900/60 border border-slate-800/80 p-8 rounded-2xl reveal hover:border-blue-500/40 transition-colors">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 text-blue-400 text-xl">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3" data-i18n="f3_title">3. Ecossistema de Vendas Completo
+                    </h4>
+                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="f3_desc">
+                        Ele não cria apenas um nome. Dependendo da sua regra, o integrador pode criar simultaneamente a
+                        Empresa, o Contato vinculado e abrir um Negócio (Deal) já no funil e etapa corretos.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-slate-900/60 border border-slate-800/80 p-8 rounded-2xl reveal hover:border-emerald-500/40 transition-colors">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 text-emerald-400 text-xl">
+                        <i class="fa-solid fa-right-left"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3" data-i18n="f4_title">4. Retorno de Vendas
+                        (Bidirecionalidade)</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="f4_desc">
+                        O fluxo não é só de ida! Quando o vendedor dá "Ganho" ou "Perdido" no CRM, o iCode RD avisa o RD
+                        Station. Meça o ROI exato das campanhas e pare de nutrir quem já virou cliente.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-slate-900/60 border border-slate-800/80 p-8 rounded-2xl reveal hover:border-purple-500/40 transition-colors">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 text-purple-400 text-xl">
+                        <i class="fa-solid fa-user-tag"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3" data-i18n="f5_title">5. Distribuição de Leads e Donos
+                    </h4>
+                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="f5_desc">
+                        O aplicativo pode respeitar regras de distribuição, atribuindo o lead automaticamente para o
+                        vendedor responsável, garantindo que ninguém fique sobrecarregado ou sem atendimento.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-slate-900/60 border border-slate-800/80 p-8 rounded-2xl reveal hover:border-amber-500/40 transition-colors">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-6 text-amber-400 text-xl">
+                        <i class="fa-solid fa-arrow-up-from-water-pump"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3" data-i18n="f6_title">6. Atualização de Estágios do
+                        Funil</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="f6_desc">
+                        Se o lead mudar de estágio no RD Station (ex: de Lead para Lead Qualificado), o iCode RD
+                        atualiza essa informação no CRM automaticamente, mantendo o histórico sempre rico.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios" class="py-20 border-t border-slate-900 bg-slate-900/20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-3" data-i18n="benefits_tag">
+                    Dores Resolvidas</h2>
+                <h3 class="text-3xl font-bold text-white" data-i18n="benefits_title">Por que escolher o iCode RD?</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flex gap-4 p-6 bg-slate-900 rounded-xl border border-slate-800/60 reveal">
+                    <div class="text-3xl">⏱️</div>
+                    <div>
+                        <h4 class="text-base font-bold text-white mb-1" data-i18n="b1_title">Venda no Timing Certo</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed" data-i18n="b1_desc">Aumente sua taxa de
+                            conversão abordando o lead nos primeiros 5 minutos após a conversão, enquanto a intenção de
+                            compra está no pico.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-6 bg-slate-900 rounded-xl border border-slate-800/60 reveal">
+                    <div class="text-3xl">📉</div>
+                    <div>
+                        <h4 class="text-base font-bold text-white mb-1" data-i18n="b2_title">Fim do Trabalho Manual</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed" data-i18n="b2_desc">Chega de baixar arquivos
+                            CSV do RD Station para subir no CRM no fim do dia. Todo o processo é 100% invisível, rápido
+                            e automático.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-6 bg-slate-900 rounded-xl border border-slate-800/60 reveal">
+                    <div class="text-3xl">🤝</div>
+                    <div>
+                        <h4 class="text-base font-bold text-white mb-1" data-i18n="b3_title">Alinhamento (Smarketing)
+                        </h4>
+                        <p class="text-sm text-slate-400 leading-relaxed" data-i18n="b3_desc">O Marketing sabe
+                            exatamente quais leads estão gerando vendas reais, e Vendas recebe o card com todo o
+                            histórico de páginas visitadas e materiais baixados.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-6 bg-slate-900 rounded-xl border border-slate-800/60 reveal">
+                    <div class="text-3xl">🛡️</div>
+                    <div>
+                        <h4 class="text-base font-bold text-white mb-1" data-i18n="b4_title">Confiabilidade e
+                            Anti-Duplicação</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed" data-i18n="b4_desc">Sistema inteligente que
+                            verifica se o e-mail ou telefone já existe na base antes de criar um novo, evitando poluir e
+                            desorganizar o seu CRM.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="precos" class="py-20 px-6 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+                <h2 class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-3" data-i18n="pricing_tag">
+                    Investimento</h2>
+                <h3 class="text-3xl font-bold text-white mb-4" data-i18n="pricing_title">Planos transparentes para sua
+                    escala</h3>
+                <p class="text-sm text-slate-400 mb-8" data-i18n="pricing_subtitle">Comece testando gratuitamente e
+                    escolha o melhor ciclo de faturamento para o seu negócio.</p>
+
+                <div class="inline-flex items-center bg-slate-900 p-1.5 rounded-xl border border-slate-800">
+                    <button id="btn-toggle-monthly" onclick="switchPricing('monthly')"
+                        class="px-5 py-2 rounded-lg text-xs font-bold transition-all text-white bg-slate-800 shadow-sm"
+                        data-i18n="tab_monthly">Mensal</button>
+                    <button id="btn-toggle-annual" onclick="switchPricing('annual')"
+                        class="px-5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white"
+                        data-i18n="tab_annual">Anual (-20%)</button>
+                </div>
+            </div>
+
+            <div
+                class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl border border-slate-700 p-8 mb-12 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 reveal">
+                <div>
+                    <div class="inline-block px-2.5 py-0.5 rounded bg-brand-500/20 text-brand-300 font-bold text-xs uppercase mb-2"
+                        data-i18n="trial_badge">Sem Cartão Requerido no Teste</div>
+                    <h4 class="text-2xl font-black text-white" data-i18n="trial_title">Trial Gratuito de 60 Dias</h4>
+                    <p class="text-slate-400 text-sm mt-1" data-i18n="trial_desc">Aproveite e valide em tempo real todas
+                        as funcionalidades sem limitações.</p>
+                </div>
+                <a href="https://www.bitrix24.com.br/apps/" target="_blank"
+                    class="px-6 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white font-bold text-sm whitespace-nowrap hover:border-brand-500 transition-colors">
+                    <span data-i18n="btn_claim_trial">Ativar Trial Agora</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch reveal">
+                <div id="card-monthly"
+                    class="bg-slate-900 rounded-2xl border-2 border-brand-500 p-8 flex flex-col justify-between relative transition-all shadow-lg shadow-brand-500/10">
+                    <div id="badge-monthly"
+                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-white font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        <span data-i18n="active_plan_badge">Plano Selecionado</span>
+                    </div>
+
+                    <div>
+                        <p class="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-2"
+                            data-i18n="plan_monthly_name">Plano Mensal</p>
+                        <div class="mb-6 flex items-baseline">
+                            <span class="text-4xl font-black text-white">R$ 239</span>
+                            <span class="text-xl text-slate-400">,90</span>
+                            <span class="text-slate-500 text-xs ml-1" data-i18n="per_month"> / mês</span>
+                        </div>
+                        <ul class="space-y-4 mb-8 text-sm text-slate-300">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-400"></i>
+                                <span data-i18n="p_f1">Sincronização Bidirecional</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-400"></i>
+                                <span data-i18n="p_f2">Mapeamento Dinâmico Inteligente</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-400"></i>
+                                <span data-i18n="p_f3">Ecossistema Automático de Vendas</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-400"></i>
+                                <span data-i18n="p_f4">Anti-Duplicados e Distribuição</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 text-center mb-4" data-i18n="cancel_anytime">Cancele quando
+                            quiser no app</p>
+                        <a href="https://www.bitrix24.com.br/apps/" target="_blank" id="cta-monthly"
+                            class="block w-full py-3.5 rounded-xl text-center gradient-bg text-white font-bold text-sm transition-all shadow-md">
+                            <span data-i18n="btn_choose_monthly">Assinar Mensal</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="card-annual"
+                    class="bg-slate-900 rounded-2xl border border-slate-800 p-8 flex flex-col justify-between relative transition-all">
+                    <div id="badge-annual"
+                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-white font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full shadow-md hidden">
+                        <span data-i18n="discount_tag">20% de Desconto</span>
+                    </div>
+
+                    <div>
+                        <p class="text-brand-400 text-xs font-semibold uppercase tracking-widest mb-2"
+                            data-i18n="plan_annual_name">Plano Anual</p>
+                        <div class="mb-2 flex items-baseline">
+                            <span class="text-4xl font-black text-white">R$ 2.303</span>
+                            <span class="text-xl text-brand-300">,04</span>
+                            <span class="text-brand-400 text-xs ml-1" data-i18n="per_year"> / ano</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6 pb-4 border-b border-slate-800"
+                            data-i18n="installments_info">Pagamento único, parcelável em até 12x</p>
+
+                        <ul class="space-y-4 mb-8 text-sm text-slate-200">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-star text-amber-400"></i> <span
+                                    class="font-semibold" data-i18n="p_f5">Todos os recursos do Mensal</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-400"></i>
+                                <span data-i18n="p_f6">Suporte Prioritário VIP</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-400"></i>
+                                <span data-i18n="p_f7">Economia de R$ 575,76 ao ano</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-brand-300 text-center mb-4" data-i18n="best_value">Recomendado para
+                            operações contínuas</p>
+                        <a href="https://www.bitrix24.com.br/apps/" target="_blank" id="cta-annual"
+                            class="block w-full py-3.5 rounded-xl text-center bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition-all">
+                            <i class="fa-solid fa-crown mr-1.5"></i> <span data-i18n="btn_choose_annual">Assinar
+                                Anual</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-900 bg-slate-950 py-12 px-6">
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="flex items-center gap-3 justify-center md:justify-start">
+                <span class="text-lg font-bold text-white tracking-wide">iCode <span
+                        class="text-brand-400">RD</span></span>
+                <span class="text-slate-700">|</span>
+                <span class="text-xs text-slate-500" data-i18n="footer_dev">Desenvolvido com excelência técnica</span>
+            </div>
+
+            <p class="text-xs text-slate-600 max-w-md" data-i18n="footer_disclaimer">
+                Este é um aplicativo oficial submetido sob as diretrizes do Bitrix24 Marketplace. Tráfego de dados
+                protegido por protocolos modernos de segurança.
+            </p>
+
+            <div class="flex items-center gap-4 justify-center">
+                <a href="mailto:suporte@academiacode.dev.br"
+                    class="text-xs text-slate-400 hover:text-brand-400 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span data-i18n="footer_support">Suporte Técnico</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. DICIONÁRIO DE IDIOMAS
+        const dicionario = {
+            "pt-BR": {
+                "nav_about": "Sobre", "nav_features": "Funcionalidades", "nav_benefits": "Benefícios", "nav_pricing": "Preços",
+                "btn_install": "Instalar no Bitrix24",
+                "hero_badge": "Integração Inteligente de Alta Performance",
+                "hero_title_1": "Elimine o abismo entre o Marketing e o seu",
+                "hero_subtitle": "O iCode RD captura dados de conversão no RD Station Marketing e envia instantaneamente para o Bitrix24. Sem planilhas manuais, sem timing perdido e sem cadastros duplicados.",
+                "btn_start_trial": "Começar Trial de 60 Dias", "btn_learn_more": "Conhecer o Sistema",
+                "about_tag": "O que é o iCode RD?", "about_title": "O seu \"tradutor e carteiro\" super-rápido",
+                "about_p1": "O <b>iCode RD</b> é um aplicativo de integração inteligente criado para eliminar o abismo entre as suas campanhas de marketing e o seu funil de vendas.",
+                "about_p2": "Ele atua de forma instantânea: no exato momento em que um lead converte em uma Landing Page ou atinge a pontuação ideal no RD Station Marketing, o iCode RD captura esses dados e os envia automaticamente para o seu CRM, criando <b>Contatos, Empresas e Negócios (Deals)</b> com todos os campos mapeados perfeitamente.",
+                "about_p3": "🚀 Chega de importar e exportar planilhas, perder o \"timing\" de vendas ou lidar com informações duplicadas no sistema.",
+                "features_tag": "Tudo o que ele faz", "features_title": "Funcionalidades Principais",
+                "f1_title": "1. Sincronização em Tempo Real", "f1_desc": "Assim que um lead converte no RD Station (via Landing Page, Pop-up ou Formulário), o contato vai para o CRM instantaneamente. Seu time recebe a oportunidade enquanto o lead ainda está \"quente\".",
+                "f2_title": "2. Mapeamento Inteligente (De Para)", "f2_desc": "Conecte os campos personalizados do RD Station com os campos específicos do seu CRM. (Ex: O campo \"Cargo\" do RD vai exatamente para o campo \"Cargo\" do CRM, sem bagunça).",
+                "f3_title": "3. Ecossistema de Vendas Completo", "f3_desc": "Ele não cria apenas um nome. Dependendo da sua regra, o integrador pode criar simultaneamente a Empresa, o Contato vinculado e abrir um Negócio (Deal) já no funil e etapa corretos.",
+                "f4_title": "4. Retorno de Vendas (Bidirecionalidade)", "f4_desc": "O fluxo não é só de ida! Quando o vendedor dá \"Ganho\" ou \"Perdido\" no CRM, o iCode RD avisa o RD Station. Meça o ROI exato das campanhas e pare de nutrir quem já virou cliente.",
+                "f5_title": "5. Distribuição de Leads e Donos", "f5_desc": "O aplicativo pode respeitar regras de distribuição, atribuindo o lead automaticamente para o vendedor responsável, garantindo que ninguém fique sobrecarregado ou sem atendimento.",
+                "f6_title": "6. Atualização de Estágios do Funil", "f6_desc": "Se o lead mudar de estágio no RD Station (ex: de Lead para Lead Qualificado), o iCode RD atualiza essa informação no CRM automaticamente, mantendo o histórico sempre rico.",
+                "benefits_tag": "Dores Resolvidas", "benefits_title": "Por que escolher o iCode RD?",
+                "b1_title": "Venda no Timing Certo", "b1_desc": "Aumente sua taxa de conversão abordando o lead nos primeiros 5 minutos após a conversão, enquanto a intenção de compra está no pico.",
+                "b2_title": "Fim do Trabalho Manual", "b2_desc": "Chega de baixar arquivos CSV do RD Station para subir no CRM no fim do dia. Todo o processo é 100% invisível, rápido e automático.",
+                "b3_title": "Alinhamento (Smarketing)", "b3_desc": "O Marketing sabe exatamente quais leads estão gerando vendas reais, e Vendas recebe o card com todo o histórico de páginas visitadas e materiais baixados.",
+                "b4_title": "Confiabilidade e Anti-Duplicação", "b4_desc": "Sistema inteligente que verifica se o e-mail ou telefone já existe na base antes de criar um novo, evitando poluir e desorganizar o seu CRM.",
+                "pricing_tag": "Investimento", "pricing_title": "Planos transparentes para sua escala", "pricing_subtitle": "Comece testando gratuitamente e escolha o melhor ciclo de faturamento para o seu negócio.",
+                "tab_monthly": "Mensal", "tab_annual": "Anual (-20%)", "trial_badge": "Sem Cartão Requerido no Teste", "trial_title": "Trial Gratuito de 60 Dias", "trial_desc": "Aproveite e valide em tempo real todas as funcionalidades sem limitações.", "btn_claim_trial": "Ativar Trial Agora",
+                "active_plan_badge": "Plano Selecionado", "discount_tag": "20% de Desconto",
+                "plan_monthly_name": "Plano Mensal", "per_month": " / mês",
+                "p_f1": "Sincronização Bidirecional", "p_f2": "Mapeamento Dinâmico Inteligente", "p_f3": "Ecossistema Automático de Vendas", "p_f4": "Anti-Duplicados e Distribuição",
+                "cancel_anytime": "Cancele quando quiser no app", "btn_choose_monthly": "Assinar Mensal",
+                "plan_annual_name": "Plano Anual", "per_year": " / ano", "installments_info": "Pagamento único, parcelável em até 12x",
+                "p_f5": "Todos os recursos do Mensal", "p_f6": "Suporte Prioritário VIP", "p_f7": "Economia de R$ 575,76 ao ano",
+                "best_value": "Recomendado para operações contínuas", "btn_choose_annual": "Assinar Anual",
+                "footer_dev": "Desenvolvido com excelência técnica", "footer_disclaimer": "Este é um aplicativo oficial submetido sob as diretrizes do Bitrix24 Marketplace. Tráfego de dados protegido por protocolos modernos de segurança.", "footer_support": "Suporte Técnico"
+            },
+            "en": {
+                "nav_about": "About", "nav_features": "Features", "nav_benefits": "Benefits", "nav_pricing": "Pricing",
+                "btn_install": "Install on Bitrix24",
+                "hero_badge": "High-Performance Smart Integration",
+                "hero_title_1": "Bridge the gap between Marketing and your",
+                "hero_subtitle": "iCode RD captures conversion data in RD Station Marketing and routes it to Bitrix24 instantly. No manual spreadsheets, lost timing, or duplicate entries.",
+                "btn_start_trial": "Start 60-Day Trial", "btn_learn_more": "Explore System",
+                "about_tag": "What is iCode RD?", "about_title": "Your ultra-fast \"translator and mailman\"",
+                "about_p1": "<b>iCode RD</b> is a smart integration app engineered to close the chasm between your marketing campaigns and your sales pipeline.",
+                "about_p2": "It operates instantaneously: the exact second a lead converts on a Landing Page or hits the scoring threshold in RD Station, iCode RD catches the data and pushes it to your CRM, building <b>Contacts, Companies, and Deals</b> with completely synchronized custom mapping.",
+                "about_p3": "🚀 Say goodbye to manual CSV exports, missing initial sales contact windows, or cluttering databases with duplicated rows.",
+                "features_tag": "Everything it handles", "features_title": "Core Functionalities",
+                "f1_title": "1. Real-Time Routing", "f1_desc": "The moment a lead converts on RD Station, entries push directly to your CRM. Reps claim high-intent prospects while leads remain warm.",
+                "f2_title": "2. Smart De-Para Mapping", "f2_desc": "Directly link customized parameters from RD Station to corresponding entity fields inside the CRM without generic unformatted text dump logs.",
+                "f3_title": "3. Sales Ecosystem Automation", "f3_desc": "Bypass basic single line inputs. Depending on configured logic, the pipeline engine generates Companies, maps child Contacts, and deploys pipeline Deal cards simultaneously.",
+                "f4_title": "4. Bidirectional Update Logs", "f4_desc": "Information flows both ways. Marking Deals Won/Lost in the CRM returns status flags back to RD Station to measure precise campaign output ROI.",
+                "f5_title": "5. Smart Assignee Rotations", "f5_desc": "Deploy automatic lead distribution algorithms to instantly direct cards to dedicated sales owners based on load thresholds.",
+                "f6_title": "6. Funnel Stage Synchronization", "f6_desc": "Tracking status shifts on RD Station instantly mutates Deal structures across target CRM funnels to reflect historical stage updates.",
+                "benefits_tag": "Solved Problems", "benefits_title": "Why choose iCode RD?",
+                "b1_title": "Optimal Contact Timing", "b1_desc": "Dramatically boost close conversion outputs by launching initial commercial outreach within 5 minutes of landing page conversions.",
+                "b2_title": "Eradicate Manual Exports", "b2_desc": "Cease repetitive end-of-day spreadsheet manipulation loads. Core transfer streams operate entirely silently in backend server environments.",
+                "b3_title": "Smarketing Cohesion", "b3_desc": "Marketing maps accurate ROI channels while commercial agents inherit total browsing interaction structures alongside submitted conversion cards.",
+                "b4_title": "Database Deduplication", "b4_desc": "Primary string verification rules parse Email or corporate IDs to gracefully merge updates instead of duplicating existing parent entries.",
+                "pricing_tag": "Investment", "pricing_title": "Transparent execution models", "pricing_subtitle": "Initiate trial parameters zero-risk and designate appropriate operational billing loops below.",
+                "tab_monthly": "Monthly", "tab_annual": "Annual (-20%)", "trial_badge": "No Credit Card Required", "trial_title": "60-Day Free Trial", "trial_desc": "Test premium architecture functionality instantly without data block restrictions.", "btn_claim_trial": "Claim Free Access",
+                "active_plan_badge": "Selected Tier", "discount_tag": "20% OFF",
+                "plan_monthly_name": "Monthly Plan", "per_month": " / month",
+                "p_f1": "Bidirectional Execution Loops", "p_f2": "Dynamic Smart Parameter Maps", "p_f3": "Automated Sales Pipeline Gen", "p_f4": "Deduplication Engines",
+                "cancel_anytime": "Cancel autonomously via settings", "btn_choose_monthly": "Subscribe Monthly",
+                "plan_annual_name": "Annual Plan", "per_year": " / year", "installments_info": "Single payout loop, supports variable card slicing",
+                "p_f5": "Inherits Core Monthly Features", "p_f6": "Priority Network VIP Queue", "p_f7": "Retain R$ 575.76 yield surplus",
+                "best_value": "Optimal format targeting continuous usage", "btn_choose_annual": "Subscribe Annual",
+                "footer_dev": "Engineered with technical excellence", "footer_disclaimer": "Validated integration compiled under Bitrix24 Marketplace constraints. Traffic layers deploy certified transport encryption architecture.", "footer_support": "Technical Assistance"
+            }
+        };
+
+        let idiomaAtual = "pt-BR";
+
+        function toggleLanguage() {
+            idiomaAtual = idiomaAtual === "pt-BR" ? "en" : "pt-BR";
+            document.getElementById("lang-flag").innerText = idiomaAtual === "pt-BR" ? "🇧🇷" : "🇺🇸";
+            document.getElementById("lang-label").innerText = idiomaAtual === "pt-BR" ? "PT-BR" : "EN";
+            document.documentElement.lang = idiomaAtual;
+
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const chave = el.getAttribute("data-i18n");
+                if (dicionario[idiomaAtual][chave]) { el.innerHTML = dicionario[idiomaAtual][chave]; }
+            });
+        }
+
+        // 2. FUNÇÃO UX: HEADER DINÂMICO AO ROLAR
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.remove('bg-transparent');
+                nav.classList.add('bg-slate-950/90', 'backdrop-blur-md', 'border-b', 'border-slate-800');
+            } else {
+                nav.classList.remove('bg-slate-950/90', 'backdrop-blur-md', 'border-b', 'border-slate-800');
+                nav.classList.add('bg-transparent');
+            }
+        });
+
+        // 3. FUNÇÃO UX: PREÇOS INTERATIVOS (MENSAL vs ANUAL)
+        function switchPricing(mode) {
+            const btnM = document.getElementById('btn-toggle-monthly');
+            const btnA = document.getElementById('btn-toggle-annual');
+            const cardM = document.getElementById('card-monthly');
+            const cardA = document.getElementById('card-annual');
+            const ctaM = document.getElementById('cta-monthly');
+            const ctaA = document.getElementById('cta-annual');
+            const badgeM = document.getElementById('badge-monthly');
+            const badgeA = document.getElementById('badge-annual');
+
+            if (mode === 'monthly') {
+                // Ativa botão Mensal
+                btnM.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all text-white bg-slate-800 shadow-sm";
+                btnA.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+
+                // Realça card Mensal
+                cardM.className = "bg-slate-900 rounded-2xl border-2 border-brand-500 p-8 flex flex-col justify-between relative transition-all shadow-lg shadow-brand-500/10";
+                cardA.className = "bg-slate-900 rounded-2xl border border-slate-800 p-8 flex flex-col justify-between relative transition-all";
+
+                // Ajusta botões CTA e Badges
+                ctaM.className = "block w-full py-3.5 rounded-xl text-center gradient-bg text-white font-bold text-sm transition-all shadow-md";
+                ctaA.className = "block w-full py-3.5 rounded-xl text-center bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition-all";
+                badgeM.classList.remove('hidden');
+                badgeA.classList.add('hidden');
+            } else {
+                // Ativa botão Anual
+                btnA.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all text-white bg-slate-800 shadow-sm";
+                btnM.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+
+                // Realça card Anual
+                cardA.className = "bg-slate-900 rounded-2xl border-2 border-brand-500 p-8 flex flex-col justify-between relative transition-all shadow-lg shadow-brand-500/10 scale-105 z-10";
+                cardM.className = "bg-slate-900 rounded-2xl border border-slate-800 p-8 flex flex-col justify-between relative transition-all opacity-90";
+
+                // Ajusta botões CTA e Badges
+                ctaA.className = "block w-full py-3.5 rounded-xl text-center gradient-bg text-white font-bold text-sm transition-all shadow-md";
+                ctaM.className = "block w-full py-3.5 rounded-xl text-center bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition-all";
+                badgeA.classList.remove('hidden');
+                badgeM.classList.add('hidden');
+            }
+        }
+
+        // 4. FUNÇÃO UX: REVEAL ON SCROLL (Animação de entrada fluida)
+        document.addEventListener("DOMContentLoaded", function () {
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>
