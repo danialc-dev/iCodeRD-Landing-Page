@@ -171,7 +171,7 @@
                 </div>
                 <div
                     class="aspect-video w-full bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80 relative flex items-center justify-center group">
-                    <img src="/src/painel.png" alt="Painel iCode RD"
+                    <img id="hero-screenshot" src="src/Dash_pt.png" data-img-pt="src/Dash_pt.png" data-img-en="src/Dash_en.png" alt="Painel iCode RD"
                         class="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity">
                 </div>
             </div>
@@ -297,6 +297,53 @@
                         atualiza essa informação no CRM automaticamente, mantendo o histórico sempre rico.
                     </p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots" class="py-20 px-6 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                <h2 class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-3" data-i18n="screenshots_tag">Veja na Prática</h2>
+                <h3 class="text-3xl font-bold text-white" data-i18n="screenshots_title">Interface do Sistema</h3>
+            </div>
+
+            <div class="relative rounded-2xl border border-slate-800 bg-slate-900/50 p-2 md:p-3 shadow-2xl mb-6 reveal">
+                <img id="screenshot-main" src="src/Dash_pt.png" data-img-pt="src/Dash_pt.png" data-img-en="src/Dash_en.png" alt="iCode RD Interface"
+                    class="w-full rounded-xl border border-slate-800/80">
+            </div>
+
+            <div class="grid grid-cols-5 gap-3 reveal">
+                <button onclick="switchScreenshot(this, 'src/Dash_pt.png', 'src/Dash_en.png')"
+                    class="ss-thumb rounded-xl overflow-hidden border-2 border-brand-500 bg-slate-900/50 transition-all group">
+                    <img src="src/Dash_pt.png" data-img-pt="src/Dash_pt.png" data-img-en="src/Dash_en.png"
+                        alt="Dashboard" class="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    <p class="text-[10px] text-center text-slate-300 font-semibold py-1.5" data-i18n="ss_t1">Visão Geral</p>
+                </button>
+                <button onclick="switchScreenshot(this, 'src/Painel1_pt.png', 'src/Painel1_en.png')"
+                    class="ss-thumb rounded-xl overflow-hidden border border-slate-700 hover:border-brand-500/60 bg-slate-900/50 transition-all group">
+                    <img src="src/Painel1_pt.png" data-img-pt="src/Painel1_pt.png" data-img-en="src/Painel1_en.png"
+                        alt="Configurações" class="w-full aspect-video object-cover opacity-70 group-hover:opacity-100 transition-opacity">
+                    <p class="text-[10px] text-center text-slate-400 font-medium py-1.5" data-i18n="ss_t2">Configurações</p>
+                </button>
+                <button onclick="switchScreenshot(this, 'src/Painel2_pt.png', 'src/Painel2_en.png')"
+                    class="ss-thumb rounded-xl overflow-hidden border border-slate-700 hover:border-brand-500/60 bg-slate-900/50 transition-all group">
+                    <img src="src/Painel2_pt.png" data-img-pt="src/Painel2_pt.png" data-img-en="src/Painel2_en.png"
+                        alt="Mapeamento I" class="w-full aspect-video object-cover opacity-70 group-hover:opacity-100 transition-opacity">
+                    <p class="text-[10px] text-center text-slate-400 font-medium py-1.5" data-i18n="ss_t3">Mapeamento I</p>
+                </button>
+                <button onclick="switchScreenshot(this, 'src/Painel3_pt.png', 'src/Painel3_en.png')"
+                    class="ss-thumb rounded-xl overflow-hidden border border-slate-700 hover:border-brand-500/60 bg-slate-900/50 transition-all group">
+                    <img src="src/Painel3_pt.png" data-img-pt="src/Painel3_pt.png" data-img-en="src/Painel3_en.png"
+                        alt="Mapeamento II" class="w-full aspect-video object-cover opacity-70 group-hover:opacity-100 transition-opacity">
+                    <p class="text-[10px] text-center text-slate-400 font-medium py-1.5" data-i18n="ss_t4">Mapeamento II</p>
+                </button>
+                <button onclick="switchScreenshot(this, 'src/Pay_pt.png', 'src/Pay_en.png')"
+                    class="ss-thumb rounded-xl overflow-hidden border border-slate-700 hover:border-brand-500/60 bg-slate-900/50 transition-all group">
+                    <img src="src/Pay_pt.png" data-img-pt="src/Pay_pt.png" data-img-en="src/Pay_en.png"
+                        alt="Assinatura" class="w-full aspect-video object-cover opacity-70 group-hover:opacity-100 transition-opacity">
+                    <p class="text-[10px] text-center text-slate-400 font-medium py-1.5" data-i18n="ss_t5">Assinatura</p>
+                </button>
             </div>
         </div>
     </section>
@@ -475,6 +522,45 @@
         </div>
     </section>
 
+    <section id="equipe" class="py-20 px-6 border-t border-slate-900">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="reveal mb-12">
+                <h2 class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-3" data-i18n="team_tag">Quem faz acontecer</h2>
+                <h3 class="text-3xl font-bold text-white" data-i18n="team_title">Os Desenvolvedores</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 flex flex-col items-center gap-5 reveal hover:border-brand-500/40 transition-colors">
+                    <img src="src/Richard.jpg" alt="Richard Senra"
+                        class="w-28 h-28 rounded-full object-cover object-top border-2 border-brand-500/50 shadow-lg shadow-brand-500/10">
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-1">Richard Senra</h4>
+                        <p class="text-sm text-brand-400 mb-4" data-i18n="team_role">Desenvolvedor Full Stack</p>
+                        <a href="https://www.linkedin.com/in/richard-senra-b44064174/" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#70b5f9] text-xs font-semibold hover:bg-[#0A66C2]/30 transition-colors">
+                            <i class="fa-brands fa-linkedin text-base"></i>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 flex flex-col items-center gap-5 reveal hover:border-brand-500/40 transition-colors">
+                    <img src="src/Daniel.png" alt="Daniel Alcantara"
+                        class="w-28 h-28 rounded-full object-cover object-top border-2 border-brand-500/50 shadow-lg shadow-brand-500/10">
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-1">Daniel Alcantara</h4>
+                        <p class="text-sm text-brand-400 mb-4" data-i18n="team_role">Desenvolvedor Full Stack</p>
+                        <a href="https://www.linkedin.com/in/daniel-alcantara-346b69232/" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#70b5f9] text-xs font-semibold hover:bg-[#0A66C2]/30 transition-colors">
+                            <i class="fa-brands fa-linkedin text-base"></i>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="border-t border-slate-900 bg-slate-950 py-12 px-6">
         <div
             class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
@@ -491,7 +577,7 @@
             </p>
 
             <div class="flex items-center gap-4 justify-center">
-                <a href="mailto:suporte@academiacode.dev.br"
+                <a href="mailto:dev@academiacode.dev.br"
                     class="text-xs text-slate-400 hover:text-brand-400 transition-colors flex items-center gap-1.5">
                     <i class="fa-solid fa-envelope"></i>
                     <span data-i18n="footer_support">Suporte Técnico</span>
@@ -535,7 +621,10 @@
                 "plan_annual_name": "Plano Anual", "per_year": " / ano", "installments_info": "Pagamento único, parcelável em até 12x",
                 "p_f5": "Todos os recursos do Mensal", "p_f6": "Suporte Prioritário VIP", "p_f7": "Economia de R$ 575,76 ao ano",
                 "best_value": "Recomendado para operações contínuas", "btn_choose_annual": "Assinar Anual",
-                "footer_dev": "Desenvolvido com excelência técnica", "footer_disclaimer": "Este é um aplicativo oficial submetido sob as diretrizes do Bitrix24 Marketplace. Tráfego de dados protegido por protocolos modernos de segurança.", "footer_support": "Suporte Técnico"
+                "footer_dev": "Desenvolvido com excelência técnica", "footer_disclaimer": "Este é um aplicativo oficial submetido sob as diretrizes do Bitrix24 Marketplace. Tráfego de dados protegido por protocolos modernos de segurança.", "footer_support": "Suporte Técnico",
+                "screenshots_tag": "Veja na Prática", "screenshots_title": "Interface do Sistema",
+                "ss_t1": "Visão Geral", "ss_t2": "Configurações", "ss_t3": "Mapeamento I", "ss_t4": "Mapeamento II", "ss_t5": "Assinatura",
+                "team_tag": "Quem faz acontecer", "team_title": "Os Desenvolvedores", "team_role": "Desenvolvedor Full Stack"
             },
             "en": {
                 "nav_about": "About", "nav_features": "Features", "nav_benefits": "Benefits", "nav_pricing": "Pricing",
@@ -569,7 +658,10 @@
                 "plan_annual_name": "Annual Plan", "per_year": " / year", "installments_info": "Single payout loop, supports variable card slicing",
                 "p_f5": "Inherits Core Monthly Features", "p_f6": "Priority Network VIP Queue", "p_f7": "Retain R$ 575.76 yield surplus",
                 "best_value": "Optimal format targeting continuous usage", "btn_choose_annual": "Subscribe Annual",
-                "footer_dev": "Engineered with technical excellence", "footer_disclaimer": "Validated integration compiled under Bitrix24 Marketplace constraints. Traffic layers deploy certified transport encryption architecture.", "footer_support": "Technical Assistance"
+                "footer_dev": "Engineered with technical excellence", "footer_disclaimer": "Validated integration compiled under Bitrix24 Marketplace constraints. Traffic layers deploy certified transport encryption architecture.", "footer_support": "Technical Assistance",
+                "screenshots_tag": "See It in Action", "screenshots_title": "System Interface",
+                "ss_t1": "Overview", "ss_t2": "Configuration", "ss_t3": "Mapping I", "ss_t4": "Mapping II", "ss_t5": "Subscription",
+                "team_tag": "The People Behind It", "team_title": "The Developers", "team_role": "Full Stack Developer"
             }
         };
 
@@ -585,9 +677,28 @@
                 const chave = el.getAttribute("data-i18n");
                 if (dicionario[idiomaAtual][chave]) { el.innerHTML = dicionario[idiomaAtual][chave]; }
             });
+
+            document.querySelectorAll("[data-img-pt]").forEach(img => {
+                img.src = idiomaAtual === "pt-BR" ? img.dataset.imgPt : img.dataset.imgEn;
+            });
         }
 
-        // 2. FUNÇÃO UX: HEADER DINÂMICO AO ROLAR
+        // 2. FUNÇÃO UX: TROCA DE SCREENSHOT NA GALERIA
+        function switchScreenshot(thumbBtn, ptSrc, enSrc) {
+            const mainImg = document.getElementById('screenshot-main');
+            mainImg.src = idiomaAtual === 'pt-BR' ? ptSrc : enSrc;
+            mainImg.dataset.imgPt = ptSrc;
+            mainImg.dataset.imgEn = enSrc;
+
+            document.querySelectorAll('.ss-thumb').forEach(btn => {
+                btn.classList.remove('border-2', 'border-brand-500');
+                btn.classList.add('border', 'border-slate-700');
+            });
+            thumbBtn.classList.remove('border', 'border-slate-700');
+            thumbBtn.classList.add('border-2', 'border-brand-500');
+        }
+
+        // 3. FUNÇÃO UX: HEADER DINÂMICO AO ROLAR
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -599,7 +710,7 @@
             }
         });
 
-        // 3. FUNÇÃO UX: PREÇOS INTERATIVOS (MENSAL vs ANUAL)
+        // 4. FUNÇÃO UX: PREÇOS INTERATIVOS (MENSAL vs ANUAL)
         function switchPricing(mode) {
             const btnM = document.getElementById('btn-toggle-monthly');
             const btnA = document.getElementById('btn-toggle-annual');
@@ -641,7 +752,7 @@
             }
         }
 
-        // 4. FUNÇÃO UX: REVEAL ON SCROLL (Animação de entrada fluida)
+        // 5. FUNÇÃO UX: REVEAL ON SCROLL (Animação de entrada fluida)
         document.addEventListener("DOMContentLoaded", function () {
             const reveals = document.querySelectorAll(".reveal");
             const observer = new IntersectionObserver((entries) => {
